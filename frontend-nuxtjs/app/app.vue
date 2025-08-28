@@ -30,6 +30,8 @@
 </template>
 
 <script setup>
+  const baseUrl = 'https://todo-list-app-super.onrender.com';
+  
   const todos = ref([]);
   const update = ref(false);
   const todoKey = ref(null);
@@ -52,7 +54,7 @@
 
   // Full Crud Ops
   onMounted(async ()=>{
-    const res = await $fetch('http://127.0.0.1:8000/todos');
+    const res = await $fetch(`${baseUrl}/todos`);
     console.log(res);
     todos.value = res;
   })
@@ -61,7 +63,7 @@
     const newTodoInput = document.getElementById('new_todo');
     const newTodoText = newTodoInput.value.trim();
     if (newTodoText) {
-      const res = await $fetch('http://127.0.0.1:8000/todos', {
+      const res = await $fetch(`${baseUrl}/todos`, {
         method: 'POST',
         body: { text: newTodoText }
       });
@@ -76,7 +78,7 @@
     const text = updateInput.value.trim();
     if (!text) return; // Do not update if text is empty
 
-    const res = await $fetch(`http://127.0.0.1:8000/todos/${id}`, {
+    const res = await $fetch(`${baseUrl}/todos/${id}`, {
       method: 'PUT',
       body: { text: text }
     });
@@ -93,7 +95,7 @@
 
   const deleteTodo = async (id) => {
     try {
-      const res = await $fetch(`http://127.0.0.1:8000/todos/${id}`, {
+      const res = await $fetch(`${baseUrl}/todos/${id}`, {
         method: 'DELETE'
       });
 
@@ -107,7 +109,7 @@
 
 
   const markDone = async (id, done) => {
-    const res = await $fetch(`http://127.0.0.1:8000/todos/${id}`, {
+    const res = await $fetch(`${baseUrl}/todos/${id}`, {
       method: 'PUT',
       body: { done: done }
     });
