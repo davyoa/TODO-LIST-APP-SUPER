@@ -1,0 +1,1 @@
+CREATE TABLE todos(id INTEGER, todo TEXT, done BOOLEAN);
